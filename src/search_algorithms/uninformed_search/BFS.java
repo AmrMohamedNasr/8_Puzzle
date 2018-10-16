@@ -4,10 +4,14 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-import search_algorithms.UninformedSearchAlgorithm;
+import search_algorithms.SearchAlgorithm;
 import state.State;
-
-public class BFS implements UninformedSearchAlgorithm {
+/**
+ * BFS search implementation.
+ * @author amrnasr
+ *
+ */
+public class BFS implements SearchAlgorithm {
 
 	@Override
 	public State search(State root, List<State> expanded_list, State goal) {

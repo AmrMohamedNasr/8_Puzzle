@@ -5,11 +5,11 @@ import java.util.List;
 import state.State;
 /**
  * Interface for the different algorithms used to solve a problem
- * by informed search methods.
+ * by search methods.
  * @author amrnasr
  *
  */
-public interface InformedSearchAlgorithm {
+public interface SearchAlgorithm {
 	/**
 	 * Searches the state space for a solution.
 	 * @param root
@@ -18,13 +18,10 @@ public interface InformedSearchAlgorithm {
 	 * The expanded list in order of expansion. Filled by function.
 	 * @param goal
 	 * The goal state representation used to test if we reached the goal state.
-	 * @param heurstic
-	 * Contains the heuristic function used in calculations.
 	 * @return
 	 * The goal state reached by the search algorithm that we can obtain from
 	 * it the path and cost of path found by the algorithm, or return null if no
 	 * path to goal found in state space.
 	 */
-	State search(State root, List<State> expanded_list, State goal,
-			HeuristicFunction heurstic);
+	State search(State root, List<State> expanded_list, State goal);
 }
