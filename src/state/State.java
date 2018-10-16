@@ -63,9 +63,13 @@ public interface State {
 	 */
 	List<State> getChildrenStates();
 	/**
-	 * Transforms the state into a string representation.
+	 * String containing the puzzle under the format all
+	 * rows concatenated to each other.<br>
+	 * [ 1  2  3 ] <br>
+	 * [ 5  7  8 ] ---->  "123578460"<br>
+	 * [ 4  6  - ]
 	 * @return
-	 * The string representation of the state.
+	 * The state string representation.
 	 */
 	String toString();
 	/**
