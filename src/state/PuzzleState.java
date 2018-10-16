@@ -13,11 +13,11 @@ public class PuzzleState implements State {
 	/**
 	 * Row size of the puzzle.
 	 */
-	static final int ROW_SIZE = 3;
+	public static final int ROW_SIZE = 3;
 	/**
 	 * Row number in the puzzle. 
 	 */
-	static final int ROW_NUM = 3;
+	public static final int ROW_NUM = 3;
 	/**
 	 * String containing the puzzle under the format all
 	 * rows concatenated to each other.<br>
@@ -197,5 +197,12 @@ public class PuzzleState implements State {
 	@Override
 	public void setHeuristicCost(int cost) {
 		this.heuristic_cost = cost;
+	}
+
+	@Override
+	public int compareTo(State o) {
+		Integer x = new Integer(this.getCost());
+		Integer y = new Integer(o.getCost());
+		return x.compareTo(y); 
 	}
 }

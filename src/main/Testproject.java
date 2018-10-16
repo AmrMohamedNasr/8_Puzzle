@@ -3,6 +3,9 @@ package main;
 import java.util.ArrayList;
 import java.util.List;
 
+import search_algorithms.HeuristicFunction;
+import search_algorithms.heuristic_function.ManhattanDistanceHeurstic;
+import search_algorithms.informed_search.AStar;
 import search_algorithms.uninformed_search.BFS;
 import state.PuzzleState;
 import state.State;
@@ -18,9 +21,10 @@ public class Testproject {
 	public static void main(String[] args) {
 		PuzzleState root = new PuzzleState("123405678");
 		PuzzleState goal = new PuzzleState("012345678");
-		BFS bfs = new BFS();
+		AStar bfs = new AStar();
+		HeuristicFunction hs = new ManhattanDistanceHeurstic();
 		List<State> expanded_list = new ArrayList<State>();
-		State target = bfs.search(root, expanded_list, goal);
+		State target = bfs.search(root, expanded_list, goal,hs);
 		System.out.print("Expansion list : ");
 		System.out.println(expanded_list.size());
 		System.out.print("Cost : ");

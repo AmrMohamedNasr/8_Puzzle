@@ -8,7 +8,7 @@ import java.util.List;
  * @author amrnasr
  *
  */
-public interface State {
+public interface State extends Comparable<State>{
 	/**
 	 * Sets the state parent.
 	 * @param state

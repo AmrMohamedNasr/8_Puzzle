@@ -14,7 +14,7 @@ public interface InformedSearchAlgorithm {
 	 * Searches the state space for a solution.
 	 * @param root
 	 * The root state to begin search from.
-	 * @param expaneded_list
+	 * @param expanded_list
 	 * The expanded list in order of expansion. Filled by function.
 	 * @param goal
 	 * The goal state representation used to test if we reached the goal state.
@@ -25,6 +25,6 @@ public interface InformedSearchAlgorithm {
 	 * it the path and cost of path found by the algorithm, or return null if no
 	 * path to goal found in state space.
 	 */
-	State search(State root, List<State> expaneded_list, State goal,
+	State search(State root, List<State> expanded_list, State goal,
 			HeuristicFunction heurstic);
 }
