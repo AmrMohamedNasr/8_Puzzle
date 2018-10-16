@@ -26,6 +26,9 @@ public class AStar implements SearchAlgorithm {
 	 * Must supply a heuristic function to be used in the search.
 	 */
 	public AStar(HeuristicFunction heuristic) {
+		if (heuristic == null) {
+			throw new RuntimeException("Must give heurstic function to A* search");
+		}
 		this.heuristic = heuristic;
 	}
 	@Override
