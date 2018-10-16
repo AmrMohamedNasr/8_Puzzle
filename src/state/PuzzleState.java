@@ -123,6 +123,7 @@ public class PuzzleState implements State {
 		if (!isValidPuzzleString(puzzle)) {
 			throw new RuntimeException("Invalid puzzle string " + puzzle);
 		}
+		this.puzzle = puzzle;
 		this.children = new ArrayList<State> ();
 		this.parent = parent;
 		this.actual_cost = cost;
@@ -151,7 +152,7 @@ public class PuzzleState implements State {
 					makeMove(empty_tile - 1, empty_tile),
 					newCost, this));
 		}
-		if (empty_tile % ROW_SIZE == ROW_SIZE - 1) {
+		if (empty_tile % ROW_SIZE != ROW_SIZE - 1) {
 			children.add(new PuzzleState(
 					makeMove(empty_tile, empty_tile + 1),
 					newCost, this));
