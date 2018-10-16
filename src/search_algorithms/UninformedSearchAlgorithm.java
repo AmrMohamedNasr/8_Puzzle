@@ -24,5 +24,5 @@ public interface UninformedSearchAlgorithm {
 	 * it the path and cost of path found by the algorithm, or return null if no
 	 * path to goal found in state space.
 	 */
-	State search(State root, List<State> expaneded_list, State goal);
+	State search(State root, List<State> expanded_list, State goal);
 }
