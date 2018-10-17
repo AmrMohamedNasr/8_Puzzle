@@ -1,6 +1,5 @@
 package search_algorithms.uninformed_search;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
@@ -15,7 +14,7 @@ public class DFS implements SearchAlgorithm {
 		State current = null, target = null;
 		frontier.add(root);
 		expanded_list.clear();
-		while(!frontier.isEmpty()) {
+		while (!frontier.isEmpty()) {
 			current = frontier.pop();
 			current.generateChildrenStates();
 			expanded_list.add(current);
