@@ -5,7 +5,11 @@ import java.util.Stack;
 
 import search_algorithms.SearchAlgorithm;
 import state.State;
-
+/**
+ * DFS search implementation
+ * @author Michael
+ *
+ */
 public class DFS implements SearchAlgorithm {
 
 	@Override
