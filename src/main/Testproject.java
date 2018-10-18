@@ -7,6 +7,8 @@ import search_algorithms.HeuristicFunction;
 import search_algorithms.SearchAlgorithm;
 import search_algorithms.heuristic_function.ManhattanDistanceHeurstic;
 import search_algorithms.informed_search.AStar;
+import search_algorithms.uninformed_search.BFS;
+import search_algorithms.uninformed_search.DFS;
 import state.PuzzleState;
 import state.State;
 
@@ -23,8 +25,8 @@ public class Testproject {
 		PuzzleState goal = new PuzzleState("012345678");
 		HeuristicFunction hs = new ManhattanDistanceHeurstic();
 		SearchAlgorithm algo;
-		algo = new AStar(hs);
-		// algo = new BFS();
+		//algo = new AStar(hs);
+		algo = new DFS();
 		List<State> expanded_list = new ArrayList<State>();
 		State target = algo.search(root, expanded_list, goal);
 		System.out.print("Expansion list : ");

@@ -26,7 +26,7 @@ public class DFS implements SearchAlgorithm {
 				target = current;
 				break;
 			}
-			for (int i = 0; i < current.getChildrenStates().size(); i++) {
+			for (int i = current.getChildrenStates().size() - 1; i >= 0 ; i--) {
 				State child = current.getChildrenStates().get(i);
 				if (!expanded_list.contains(child) && !frontier.contains(child)) {
 					frontier.add(child);
