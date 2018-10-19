@@ -14,6 +14,7 @@ import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -154,6 +155,19 @@ public class GUI extends JFrame {
 
 		cursor = new Cursor(Cursor.HAND_CURSOR);
 
+		puzzle = new JTextField[3][3];
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				puzzle[i][j] = new JTextField();
+				puzzle[i][j].setEditable(false);
+				puzzle[i][j].setFont(font);
+				puzzle[i][j].setBackground(Color.DARK_GRAY);
+				puzzle[i][j].setHorizontalAlignment(SwingConstants.CENTER);
+				puzzle[i][j].setBounds(20 + j * 50, 120 + i * 50, 50, 50);
+				getContentPane().add(puzzle[i][j]);
+			}
+		}
+		
 		start = new JButton();
 		initializeButton(start, "start.png", "Simulate", 800);
 		start.addActionListener(new ActionListener() {
@@ -218,18 +232,7 @@ public class GUI extends JFrame {
 		scroll_pane.setAutoscrolls(true);
 		getContentPane().add(scroll_pane);
 
-		puzzle = new JTextField[3][3];
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				puzzle[i][j] = new JTextField();
-				puzzle[i][j].setEditable(false);
-				puzzle[i][j].setFont(font);
-				puzzle[i][j].setBackground(Color.DARK_GRAY);
-				puzzle[i][j].setHorizontalAlignment(SwingConstants.CENTER);
-				puzzle[i][j].setBounds(20 + j * 50, 120 + i * 50, 50, 50);
-				getContentPane().add(puzzle[i][j]);
-			}
-		}
+		
 	}
 
 	private void initializeLabel(JLabel label, String text, int x) {
@@ -279,10 +282,12 @@ public class GUI extends JFrame {
 				if (k == 0) {
 					puzzle[i][j].setBackground(Color.DARK_GRAY);
 					puzzle[i][j].setText("");
-					continue;
+				} else {
+					puzzle[i][j].setText(k + "");
+					puzzle[i][j].setBackground(Color.getHSBColor(k * 12 / 256.0f, 1.0f, 1.0f));
 				}
-				puzzle[i][j].setText(k + "");
-				puzzle[i][j].setBackground(Color.getHSBColor(k * 12 / 256.0f, 1.0f, 1.0f));
+				puzzle[i][j].repaint();
+				
 			}
 		}
 	}
