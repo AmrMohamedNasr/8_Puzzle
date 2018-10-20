@@ -3,6 +3,7 @@ package gui.panels;
 import java.awt.BorderLayout;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -74,7 +75,7 @@ public class SearchTreePanel extends JPanel implements OutputDependentComponent 
 		pane = new JScrollPane(tree_panel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		pane.setPreferredSize(new Dimension(1500, 1000));
-
+		tree_panel.pane = pane;
 		this.add(buttonPanel, BorderLayout.NORTH);
 		this.add(pane, BorderLayout.CENTER);
 	}
@@ -91,6 +92,7 @@ public class SearchTreePanel extends JPanel implements OutputDependentComponent 
 		worker = new TreeWorker(this);
 		start.setEnabled(true);
 		reset.setEnabled(false);
+		tree_panel.repaint();
 	}
 
 	@Override
