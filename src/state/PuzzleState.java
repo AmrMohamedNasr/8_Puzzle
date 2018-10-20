@@ -2,6 +2,8 @@ package state;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import state.exceptions.InvalidStateException;
 /**
  * Class that represents a puzzle state,
  * containing the important information of pointers to its children,
@@ -37,7 +39,7 @@ public class PuzzleState implements State {
 	/**
 	 * Heuristic cost of reaching the goal.
 	 */
-	private int heuristic_cost;
+	private double heuristic_cost;
 	/**
 	 * Children states that can be reached from this state.
 	 */
@@ -121,7 +123,7 @@ public class PuzzleState implements State {
 	 */
 	public PuzzleState(String puzzle, int cost, PuzzleState parent) {
 		if (!isValidPuzzleString(puzzle)) {
-			throw new RuntimeException("Invalid puzzle string " + puzzle);
+			throw new InvalidStateException("Invalid puzzle string " + puzzle);
 		}
 		this.puzzle = puzzle;
 		this.children = new ArrayList<State> ();
@@ -183,11 +185,11 @@ public class PuzzleState implements State {
 		return this.actual_cost;
 	}
 	@Override
-	public int getHeuristicCost() {
+	public double getHeuristicCost() {
 		return this.heuristic_cost;
 	}
 	@Override
-	public int getCost() {
+	public double getCost() {
 		return this.heuristic_cost + this.actual_cost;
 	}
 	@Override
@@ -195,14 +197,14 @@ public class PuzzleState implements State {
 		this.actual_cost = cost;
 	}
 	@Override
-	public void setHeuristicCost(int cost) {
+	public void setHeuristicCost(double cost) {
 		this.heuristic_cost = cost;
 	}
 
 	@Override
 	public int compareTo(State o) {
-		Integer x = new Integer(this.getCost());
-		Integer y = new Integer(o.getCost());
+		Double x = new Double(this.getCost());
+		Double y = new Double(o.getCost());
 		return x.compareTo(y); 
 	}
 }

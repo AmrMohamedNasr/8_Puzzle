@@ -8,6 +8,7 @@ import java.util.PriorityQueue;
 
 import search_algorithms.HeuristicFunction;
 import search_algorithms.SearchAlgorithm;
+import search_algorithms.SearchResult;
 import state.State;
 /**
  * A* implementation.
@@ -32,17 +33,22 @@ public class AStar implements SearchAlgorithm {
 		this.heuristic = heuristic;
 	}
 	@Override
-	public State search(State root, List<State> expanded_list, State goal) {
+	public SearchResult search(State root, List<State> expanded_list, State goal) {
+		long start_time = System.nanoTime();
 		PriorityQueue<State> frontier = new PriorityQueue<State>();
-		Map<State, Integer> frontier_map = new HashMap<State, Integer>();
+		Map<State, Double> frontier_map = new HashMap<State, Double>();
 		root.setHeuristicCost(heuristic.calculateHeursiticCost(root, goal));
 		frontier.add(root);
 		frontier_map.put(root, root.getCost());
 		State current = null, target = null;
 		expanded_list.clear();
+		int max_depth = 0;
 		while (!frontier.isEmpty()) {
 			current = frontier.poll();
 			frontier_map.remove(current);
+			if (max_depth < current.getActualCost()) {
+				max_depth = current.getActualCost();
+			}
 			current.generateChildrenStates();
 			expanded_list.add(current);
 			if (goal.equals(current)) {
@@ -66,7 +72,8 @@ public class AStar implements SearchAlgorithm {
 				}
 			}
 		}
-		return target;
+		long time_taken = System.nanoTime() - start_time;
+		return new SearchResult(target, max_depth, expanded_list, time_taken);
 	}
 
 }

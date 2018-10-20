@@ -19,9 +19,7 @@ public interface SearchAlgorithm {
 	 * @param goal
 	 * The goal state representation used to test if we reached the goal state.
 	 * @return
-	 * The goal state reached by the search algorithm that we can obtain from
-	 * it the path and cost of path found by the algorithm, or return null if no
-	 * path to goal found in state space.
+	 * The search results containing all needed information about the search and the results.
 	 */
-	State search(State root, List<State> expanded_list, State goal);
+	SearchResult search(State root, List<State> expanded_list, State goal);
 }

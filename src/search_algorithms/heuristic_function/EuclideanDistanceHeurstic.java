@@ -4,12 +4,12 @@ import search_algorithms.HeuristicFunction;
 import state.PuzzleState;
 import state.State;
 /**
- * Implements Manhattan distance heuristic.
+ * Implements Euclidean distance heuristic.
  * @author amrnasr
  *
  */
-public class ManhattanDistanceHeurstic implements HeuristicFunction {
-
+public class EuclideanDistanceHeurstic implements HeuristicFunction {
+	
 	@Override
 	public double calculateHeursiticCost(State current, State goal) {
 		int distance = 0;
@@ -24,9 +24,8 @@ public class ManhattanDistanceHeurstic implements HeuristicFunction {
 			int x = j / PuzzleState.ROW_SIZE;
 			int y = j % PuzzleState.ROW_SIZE;
 			int index = g.charAt(j)- '0';
-			distance += Math.abs(coords[index][0] - x) + Math.abs(coords[index][1] - y); 
+			distance += Math.sqrt(Math.pow(coords[index][0] - x, 2) + Math.pow(coords[index][1] - y, 2)); 
 		}
 		return distance;
 	}
-
 }

@@ -16,5 +16,5 @@ public interface HeuristicFunction {
 	 * @return
 	 * The heuristic cost between the current state and the goal state.
 	 */
-	int calculateHeursiticCost(State current, State goal);
+	double calculateHeursiticCost(State current, State goal);
 }

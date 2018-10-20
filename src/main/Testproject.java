@@ -5,6 +5,8 @@ import java.util.List;
 
 import search_algorithms.HeuristicFunction;
 import search_algorithms.SearchAlgorithm;
+import search_algorithms.SearchResult;
+import search_algorithms.heuristic_function.EuclideanDistanceHeurstic;
 import search_algorithms.heuristic_function.ManhattanDistanceHeurstic;
 import search_algorithms.informed_search.AStar;
 import search_algorithms.uninformed_search.BFS;
@@ -23,20 +25,19 @@ public class Testproject {
 	public static void main(String[] args) {
 		PuzzleState root = new PuzzleState("123405678");
 		PuzzleState goal = new PuzzleState("012345678");
-		HeuristicFunction hs = new ManhattanDistanceHeurstic();
+		HeuristicFunction hs = new EuclideanDistanceHeurstic();
 		SearchAlgorithm algo;
-		//algo = new AStar(hs);
-		algo = new DFS();
+		algo = new AStar(hs);
+		//algo = new DFS();
 		List<State> expanded_list = new ArrayList<State>();
-		State target = algo.search(root, expanded_list, goal);
+		SearchResult target = algo.search(root, expanded_list, goal);
 		System.out.print("Expansion list : ");
-		System.out.println(expanded_list.size());
+		System.out.println(target.expanded_list.size());
 		System.out.print("Cost : ");
-		System.out.println(target.getCost());
+		System.out.println(target.goal_cost);
 		System.out.print("Path : ");
-		while (target != null) {
-			System.out.println(target);
-			target = target.getParent();
+		for (int i = 0; i < target.goal_path.size(); i++) {
+			System.out.println(target.goal_path.get(i));
 		}
 		System.out.println("............");
 	}

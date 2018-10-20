@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Queue;
 
 import search_algorithms.SearchAlgorithm;
+import search_algorithms.SearchResult;
 import state.State;
 /**
  * BFS search implementation.
@@ -14,13 +15,18 @@ import state.State;
 public class BFS implements SearchAlgorithm {
 
 	@Override
-	public State search(State root, List<State> expanded_list, State goal) {
+	public SearchResult search(State root, List<State> expanded_list, State goal) {
+		long start_time = System.nanoTime();
 		Queue<State> frontier = new LinkedList<State>();
 		expanded_list.clear();
 		State current = null, target = null;
 		frontier.add(root);
+		int max_depth = 0;
 		while(!frontier.isEmpty()) {
 			current = frontier.remove();
+			if (max_depth < current.getActualCost()) {
+				max_depth = current.getActualCost();
+			}
 			current.generateChildrenStates();
 			expanded_list.add(current);
 			if (goal.equals(current)) {
@@ -34,7 +40,8 @@ public class BFS implements SearchAlgorithm {
 				}
 			}
 		}
-		return target;
+		long time_taken = System.nanoTime() - start_time;
+		return new SearchResult(target, max_depth, expanded_list, time_taken);
 	}
 
 }

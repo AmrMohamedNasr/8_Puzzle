@@ -32,14 +32,14 @@ public interface State extends Comparable<State>{
 	 * @return
 	 * The heuristic remaining cost for reaching the goal.
 	 */
-	int getHeuristicCost();
+	double getHeuristicCost();
 	/**
 	 * Get the heuristic total cost for reaching the goal.
 	 * @return
 	 * The actual cost to reach the child + the heuristic remaining
 	 * cost to reach the goal.
 	 */
-	int getCost();
+	double getCost();
 	/**
 	 * Setter for the actual cost.
 	 * @param cost
@@ -51,7 +51,7 @@ public interface State extends Comparable<State>{
 	 * @param cost
 	 * The heuristic cost to reach the goal from this state.
 	 */
-	void setHeuristicCost(int cost);
+	void setHeuristicCost(double cost);
 	/**
 	 * Generates all possible states that can be reached from this state.
 	 */
