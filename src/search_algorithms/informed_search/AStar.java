@@ -5,26 +5,29 @@ import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 
-
 import search_algorithms.HeuristicFunction;
 import search_algorithms.SearchAlgorithm;
 import search_algorithms.SearchResult;
 import state.State;
+
 /**
  * A* implementation.
+ * 
  * @author amrnasr
  *
  */
 public class AStar implements SearchAlgorithm {
-	
+
 	/**
 	 * Heuristic function used in search.
 	 */
 	private HeuristicFunction heuristic;
+
 	/**
 	 * Constructor for the informed search method A*.
+	 * 
 	 * @param heuristic
-	 * Must supply a heuristic function to be used in the search.
+	 *            Must supply a heuristic function to be used in the search.
 	 */
 	public AStar(HeuristicFunction heuristic) {
 		if (heuristic == null) {
@@ -32,6 +35,7 @@ public class AStar implements SearchAlgorithm {
 		}
 		this.heuristic = heuristic;
 	}
+
 	@Override
 	public SearchResult search(State root, List<State> expanded_list, State goal) {
 		long start_time = System.nanoTime();
@@ -49,12 +53,12 @@ public class AStar implements SearchAlgorithm {
 			if (max_depth < current.getActualCost()) {
 				max_depth = current.getActualCost();
 			}
-			current.generateChildrenStates();
 			expanded_list.add(current);
 			if (goal.equals(current)) {
 				target = current;
 				break;
 			}
+			current.generateChildrenStates();
 			for (int i = 0; i < current.getChildrenStates().size(); i++) {
 				State child = current.getChildrenStates().get(i);
 				if (!expanded_list.contains(child) && !frontier_map.containsKey(child)) {

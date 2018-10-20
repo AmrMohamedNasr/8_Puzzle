@@ -6,8 +6,10 @@ import java.util.Stack;
 import search_algorithms.SearchAlgorithm;
 import search_algorithms.SearchResult;
 import state.State;
+
 /**
  * DFS search implementation
+ * 
  * @author Michael
  *
  */
@@ -26,13 +28,13 @@ public class DFS implements SearchAlgorithm {
 			if (max_depth < current.getActualCost()) {
 				max_depth = current.getActualCost();
 			}
-			current.generateChildrenStates();
 			expanded_list.add(current);
 			if (goal.equals(current)) {
 				target = current;
 				break;
 			}
-			for (int i = current.getChildrenStates().size() - 1; i >= 0 ; i--) {
+			current.generateChildrenStates();
+			for (int i = current.getChildrenStates().size() - 1; i >= 0; i--) {
 				State child = current.getChildrenStates().get(i);
 				if (!expanded_list.contains(child) && !frontier.contains(child)) {
 					frontier.add(child);
