@@ -10,14 +10,15 @@ import solver.PuzzleSolver;
 import state.State;
 
 public class PuzzleWorker extends SwingWorker<String, Void> {
-	
+
 	private final PuzzleSolver solver;
 	private final PuzzlePanel panel;
-	
+
 	public PuzzleWorker(PuzzleSolver solver, PuzzlePanel panel) {
 		this.solver = solver;
 		this.panel = panel;
 	}
+
 	@Override
 	protected String doInBackground() throws Exception {
 		List<State> true_path = solver.getSearchResult().goal_path;
@@ -28,5 +29,5 @@ public class PuzzleWorker extends SwingWorker<String, Void> {
 		}
 		return null;
 	}
-	
+
 }

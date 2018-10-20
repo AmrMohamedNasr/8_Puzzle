@@ -3,6 +3,7 @@ package gui.panels;
 import java.awt.BorderLayout;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,6 +17,7 @@ import javax.swing.JScrollPane;
 
 import gui.OutputDependentComponent;
 import gui.workers.TreeWorker;
+import solver.PuzzleSolver;
 
 public class SearchTreePanel extends JPanel implements OutputDependentComponent {
 
@@ -23,14 +25,17 @@ public class SearchTreePanel extends JPanel implements OutputDependentComponent 
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JButton start,reset;
+	private JButton start, reset;
 	/**
 	 * scroll pane for the graph.
 	 */
 	private JScrollPane pane;
+	private TreePanel tree_panel;
 	private TreeWorker worker;
-	
-	public SearchTreePanel() {
+	private PuzzleSolver solver;
+
+	public SearchTreePanel(PuzzleSolver solv) {
+		solver = solv;
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.LINE_AXIS));
 		start = new JButton();
@@ -41,7 +46,7 @@ public class SearchTreePanel extends JPanel implements OutputDependentComponent 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				worker.cancel(true);
-				worker = new TreeWorker();
+				worker = createNewTreeWorker();
 				worker.execute();
 				reset.setEnabled(true);
 				start.setEnabled(false);
@@ -61,18 +66,29 @@ public class SearchTreePanel extends JPanel implements OutputDependentComponent 
 		});
 		start.setEnabled(false);
 		reset.setEnabled(false);
-		worker = new TreeWorker();
+		worker = new TreeWorker(this);
+
 		this.setLayout(new BorderLayout());
-		pane = new JScrollPane();
+
+		tree_panel = new TreePanel(solver);
+		pane = new JScrollPane(tree_panel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		pane.setPreferredSize(new Dimension(1500, 1000));
+
 		this.add(buttonPanel, BorderLayout.NORTH);
-        this.add(pane, BorderLayout.CENTER);
+		this.add(pane, BorderLayout.CENTER);
 	}
-	
+
+	@Override
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		tree_panel.repaint();
+	}
+
 	@Override
 	public void informOutputReady() {
 		worker.cancel(true);
-		worker = new TreeWorker();
+		worker = new TreeWorker(this);
 		start.setEnabled(true);
 		reset.setEnabled(false);
 	}
@@ -80,7 +96,7 @@ public class SearchTreePanel extends JPanel implements OutputDependentComponent 
 	@Override
 	public void informOutputUnready() {
 		worker.cancel(true);
-		worker = new TreeWorker();
+		worker = new TreeWorker(this);
 		start.setEnabled(false);
 		reset.setEnabled(false);
 	}
@@ -92,12 +108,16 @@ public class SearchTreePanel extends JPanel implements OutputDependentComponent 
 		button.setSize(buttonDimensions);
 		ImageIcon icon = new ImageIcon(path);
 		Image img = icon.getImage();
-		Image newimg = img.getScaledInstance((int)buttonDimensions.getWidth(),
-				(int)buttonDimensions.getHeight(), java.awt.Image.SCALE_SMOOTH);
+		Image newimg = img.getScaledInstance((int) buttonDimensions.getWidth(), (int) buttonDimensions.getHeight(),
+				java.awt.Image.SCALE_SMOOTH);
 		icon = new ImageIcon(newimg);
 		button.setIcon(icon);
 		button.setToolTipText(text);
 		button.setCursor(cursor);
 		panel.add(button);
+	}
+
+	private TreeWorker createNewTreeWorker() {
+		return new TreeWorker(this);
 	}
 }

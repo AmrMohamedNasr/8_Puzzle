@@ -3,7 +3,6 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Font;
 
 import javax.swing.JFrame;
@@ -25,8 +24,8 @@ public class PuzzleFrame extends JFrame implements OutputDependentComponent {
 	private SearchTreePanel treePanel;
 	private InformationPanel infoPanel;
 	private PuzzleSolver solver;
-	
-	public PuzzleFrame () {
+
+	public PuzzleFrame() {
 		setTitle("8_Puzzle Solver");
 		setPreferredSize(new Dimension(1000, 600));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -40,7 +39,7 @@ public class PuzzleFrame extends JFrame implements OutputDependentComponent {
 		this.add(inputPanel, BorderLayout.NORTH);
 		puzzlePanel = new PuzzlePanel(font, bg_color, solver);
 		this.add(puzzlePanel, BorderLayout.WEST);
-		treePanel = new SearchTreePanel();
+		treePanel = new SearchTreePanel(solver);
 		this.add(treePanel, BorderLayout.EAST);
 		infoPanel = new InformationPanel(font, bg_color, solver);
 		this.add(infoPanel, BorderLayout.SOUTH);
