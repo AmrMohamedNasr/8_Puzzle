@@ -7,14 +7,19 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
+import file.FileManagement;
+import file.FileManagementInf;
 import gui.OutputDependentComponent;
 import solver.PuzzleSolver;
 
@@ -48,6 +53,7 @@ public class InformationPanel extends JPanel implements OutputDependentComponent
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				saveAction();
 			}
 		});
 		writeToFile.setEnabled(false);
@@ -105,5 +111,48 @@ public class InformationPanel extends JPanel implements OutputDependentComponent
 		button.setToolTipText(text);
 		button.setCursor(cursor);
 		this.add(button);
+	}
+	
+	/**
+	 * Performs the saving action.
+	 */
+	private void saveAction() {
+		JFileChooser chooser = new JFileChooser();
+		FileNameExtensionFilter txtfilter
+		= new FileNameExtensionFilter(
+				"text files (*.txt)", "txt");
+		chooser.addChoosableFileFilter(txtfilter);
+		chooser.setAcceptAllFileFilterUsed(false);
+		chooser.setFileFilter(txtfilter);
+		int choice = chooser.showSaveDialog(null);
+		if (choice != JFileChooser.APPROVE_OPTION) {
+			return;
+		}
+		File chosenFile = chooser.getSelectedFile();
+		FileManagementInf writer = new FileManagement();
+		writer.writeToFile(correctName(chosenFile, "txt"), solver);
+		
+		
+	}
+	/**
+     * Corrects a file given name so that it has the right extension.
+     * @param chosenFile
+     * The file name.
+     * @param extension
+     * The required extension.
+     * @return
+     * The file name with the required extension.
+     */
+	private File correctName(final File chosenFile,
+			final String extension) {
+		String[] name = chosenFile.getName().split(".");
+		if (name.length != 0
+			&& name[name.length - 1].equals(extension)) {
+			return chosenFile;
+		} else {
+			File file = new File(
+				chosenFile.toString() + "." + extension);
+			return file;
+		}
 	}
 }
