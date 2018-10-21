@@ -6,7 +6,11 @@ import java.io.FileOutputStream;
 import java.io.PrintStream;
 
 import solver.PuzzleSolver;
-
+/**
+ * File management writer class.
+ * @author Michael
+ *
+ */
 public class FileManagement implements FileManagementInf{
 
 	@Override
@@ -28,11 +32,17 @@ public class FileManagement implements FileManagementInf{
 				}
 			}
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 	}
-	
+	/**
+	 * print details of puzzle solver.
+	 * @param ps
+	 * print stream used.
+	 * @param solver
+	 * puzzle solver containing all details.
+	 */
 	private void printSolverDetails(PrintStream ps, PuzzleSolver solver) {
 		String cost = String.valueOf(solver.getSearchResult().goal_cost);
 		String nodes = String.valueOf(solver.getSearchResult().expanded_list.size());
