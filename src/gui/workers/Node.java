@@ -10,7 +10,7 @@ import state.State;
 public class Node implements INode {
 	private Point center;
 	private int radius, left_upper_x, left_upper_y;
-	private String content;
+	private String content[];
 	private Color color;
 	private Ellipse2D ellipse;
 	private State state;
@@ -18,11 +18,14 @@ public class Node implements INode {
 	public Node(State state, Point center) {
 		this.state = state;
 		this.center = center;
+		radius = 50;
 		this.left_upper_x = center.x - radius;
 		this.left_upper_y = center.y - radius;
-		radius = 50;
-		content = "State: " + state.toString() + "\nActual Cost: " + state.getActualCost() + "\nHeuristic Cost: "
-				+ state.getHeuristicCost() + "\nTotal Cost: " + state.getCost();
+		content = new String[4];
+		content[0] = "s:" + state.toString();
+		content[1] = "g(s): " + state.getActualCost();
+		content[2] = "h(s): " + state.getHeuristicCost();
+		content[3] = "f(s): " + state.getCost();
 		this.color = Color.BLACK;
 		ellipse = new Ellipse2D.Double(left_upper_x, left_upper_y, 2 * radius, 2 * radius);
 	}
@@ -36,7 +39,14 @@ public class Node implements INode {
 	public void draw(Graphics2D g) {
 		g.setColor(color);
 		g.draw(ellipse);
-		g.drawString(content, left_upper_x, center.y);
+		g.drawOval(left_upper_x, left_upper_y, 2 * radius, 2 * radius);
+		for (int i = 0; i < content.length; i++) {
+			if (i == 0) {
+				g.drawString(content[i], center.x - (radius) + 8, center.y + ( 2 - i) * (2 + radius / 4) - 5);
+			} else {
+				g.drawString(content[i], center.x - (radius / 2), center.y + ( 2 - i) * (2 + radius / 4) - 5);
+			}
+		}
 	}
 
 	@Override

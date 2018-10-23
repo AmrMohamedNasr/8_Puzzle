@@ -47,7 +47,7 @@ public class SearchTreePanel extends JPanel implements OutputDependentComponent 
 			public void actionPerformed(ActionEvent arg0) {
 				worker.cancel(true);
 				worker = createNewTreeWorker();
-				worker.execute();
+				//worker.execute();
 				reset.setEnabled(true);
 				start.setEnabled(false);
 			}
@@ -66,7 +66,7 @@ public class SearchTreePanel extends JPanel implements OutputDependentComponent 
 		});
 		start.setEnabled(false);
 		reset.setEnabled(false);
-		worker = new TreeWorker(this);
+		worker = createNewTreeWorker();
 
 		this.setLayout(new BorderLayout());
 
@@ -82,24 +82,24 @@ public class SearchTreePanel extends JPanel implements OutputDependentComponent 
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		tree_panel.repaint();
 	}
 
 	@Override
 	public void informOutputReady() {
 		worker.cancel(true);
-		worker = new TreeWorker(this);
+		worker = createNewTreeWorker();
 		start.setEnabled(true);
 		reset.setEnabled(false);
-		tree_panel.repaint();
+		tree_panel.build_model();
 	}
 
 	@Override
 	public void informOutputUnready() {
 		worker.cancel(true);
-		worker = new TreeWorker(this);
+		worker = createNewTreeWorker();
 		start.setEnabled(false);
 		reset.setEnabled(false);
+		tree_panel.reset_model();
 	}
 
 	private void initializeButton(JButton button, String path, String text, JPanel panel) {
@@ -119,6 +119,6 @@ public class SearchTreePanel extends JPanel implements OutputDependentComponent 
 	}
 
 	private TreeWorker createNewTreeWorker() {
-		return new TreeWorker(this);
+		return new TreeWorker(tree_panel, solver);
 	}
 }
