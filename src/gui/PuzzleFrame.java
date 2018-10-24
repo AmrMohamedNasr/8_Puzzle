@@ -39,8 +39,8 @@ public class PuzzleFrame extends JFrame implements OutputDependentComponent {
 		this.add(inputPanel, BorderLayout.NORTH);
 		puzzlePanel = new PuzzlePanel(font, bg_color, solver);
 		this.add(puzzlePanel, BorderLayout.WEST);
-		treePanel = new SearchTreePanel(solver);
-		this.add(treePanel, BorderLayout.EAST);
+		treePanel = new SearchTreePanel(solver, this);
+		this.add(treePanel, BorderLayout.CENTER);
 		infoPanel = new InformationPanel(font, bg_color, solver);
 		this.add(infoPanel, BorderLayout.SOUTH);
 	}

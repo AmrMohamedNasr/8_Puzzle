@@ -12,6 +12,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -34,7 +35,7 @@ public class SearchTreePanel extends JPanel implements OutputDependentComponent 
 	private TreeWorker worker;
 	private PuzzleSolver solver;
 
-	public SearchTreePanel(PuzzleSolver solv) {
+	public SearchTreePanel(PuzzleSolver solv, JFrame parent_frame) {
 		solver = solv;
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.LINE_AXIS));
@@ -75,7 +76,6 @@ public class SearchTreePanel extends JPanel implements OutputDependentComponent 
 		tree_panel = new TreePanel(solver);
 		pane = new JScrollPane(tree_panel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		pane.setPreferredSize(new Dimension(1500, 1000));
 		tree_panel.pane = pane;
 		this.add(buttonPanel, BorderLayout.NORTH);
 		this.add(pane, BorderLayout.CENTER);
