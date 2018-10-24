@@ -30,6 +30,12 @@ public class Node implements INode {
 		ellipse = new Ellipse2D.Double(left_upper_x, left_upper_y, 2 * radius, 2 * radius);
 	}
 
+	public void move_to(Point center) {
+		this.center = center;
+		this.left_upper_x = center.x - radius;
+		this.left_upper_y = center.y - radius;
+		ellipse = new Ellipse2D.Double(left_upper_x, left_upper_y, 2 * radius, 2 * radius);
+	}
 	@Override
 	public void changeColor(Color color) {
 		this.color = color;

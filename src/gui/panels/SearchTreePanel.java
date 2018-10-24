@@ -47,7 +47,7 @@ public class SearchTreePanel extends JPanel implements OutputDependentComponent 
 			public void actionPerformed(ActionEvent arg0) {
 				worker.cancel(true);
 				worker = createNewTreeWorker();
-				//worker.execute();
+				worker.execute();
 				reset.setEnabled(true);
 				start.setEnabled(false);
 			}
@@ -60,8 +60,10 @@ public class SearchTreePanel extends JPanel implements OutputDependentComponent 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				worker.cancel(true);
+				worker = createNewTreeWorker();
 				reset.setEnabled(false);
 				start.setEnabled(true);
+				tree_panel.build_model();
 			}
 		});
 		start.setEnabled(false);

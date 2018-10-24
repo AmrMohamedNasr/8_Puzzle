@@ -37,4 +37,5 @@ public interface INode {
 	 * @return Point center
 	 */
 	public Point getCenter();
+	public void move_to(Point center);
 }
