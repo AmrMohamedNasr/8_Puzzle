@@ -210,6 +210,6 @@ public class PuzzleState implements State {
 	
 	@Override
 	public int hashCode() {
-		return this.puzzle.hashCode();
+		return this.puzzle.hashCode();	
 	}
 }

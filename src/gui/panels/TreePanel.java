@@ -59,7 +59,7 @@ public class TreePanel extends JPanel {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setStroke(new BasicStroke(2));
-		for (int i = 0; i < to_draw.size(); i++) {
+		for (int i = 0; to_draw != null && i < to_draw.size(); i++) {
 			to_draw.get(i).draw(g2);
 			if (lines.containsKey(to_draw.get(i).getState()) && !to_draw.get(i).getState().equals(centerState)) {
 				lines.get(to_draw.get(i).getState()).draw(g2);
@@ -177,6 +177,8 @@ public class TreePanel extends JPanel {
 			int effective_depth = m.getActualCost() - basic_depth;
 			if (effective_depth == 0) {
 				Node gnode = nodes.get(m);
+				System.out.println(m);
+				System.out.println("Center");
 				gnode.move_to(new Point(d.width / 2, 50));
 				to_draw.add(gnode);
 			} else if (effective_depth == 1) {
