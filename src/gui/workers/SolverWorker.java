@@ -58,6 +58,8 @@ public class SolverWorker extends SwingWorker<String, Void>{
 		} catch (InvalidStateException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 			reset.doClick();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return null;
 	}

@@ -80,4 +80,5 @@ public interface State extends Comparable<State>{
 	 * True if they are equal.
 	 */
 	boolean equals(Object obj);
+	int hashCode();
 }

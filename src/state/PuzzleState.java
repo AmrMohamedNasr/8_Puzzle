@@ -207,4 +207,9 @@ public class PuzzleState implements State {
 		Double y = new Double(o.getCost());
 		return x.compareTo(y); 
 	}
+	
+	@Override
+	public int hashCode() {
+		return this.puzzle.hashCode();
+	}
 }

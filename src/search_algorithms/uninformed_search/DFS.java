@@ -40,7 +40,7 @@ public class DFS implements SearchAlgorithm {
 			current.generateChildrenStates();
 			for (int i = current.getChildrenStates().size() - 1; i >= 0; i--) {
 				State child = current.getChildrenStates().get(i);
-				if (!exploreHash.contains(child) && !frontier.contains(child)) {
+				if ((!exploreHash.contains(child)) && (!frontier.contains(child))) {
 					frontier.add(child);
 				}
 			}
