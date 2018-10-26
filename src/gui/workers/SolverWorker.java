@@ -25,19 +25,22 @@ public class SolverWorker extends SwingWorker<String, Void>{
 	private final JButton reset;
 	private final int search_index, heuristic_index;
 	private final String state;
+	private final JButton start;
 	
 	public SolverWorker(PuzzleSolver solver, PuzzleFrame panel,
-			int search_index, int heuristic_index, JButton reset, String state) {
+			int search_index, int heuristic_index, JButton reset, String state, JButton start) {
 		this.solver = solver;
 		this.panel = panel;
 		this.search_index = search_index;
 		this.heuristic_index = heuristic_index;
 		this.reset = reset;
 		this.state = state;
+		this.start = start;
 	}
 	@Override
 	protected String doInBackground() throws Exception {
 		panel.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+		this.start.setEnabled(false);
 		try {
 			if (isValidPuzzleString(state) && !isPuzzleSolvable(state)) {
 				JOptionPane.showMessageDialog(null, "ERROR UnSolvable Puzzle!");
@@ -49,6 +52,7 @@ public class SolverWorker extends SwingWorker<String, Void>{
 						reset.doClick();
 					} else {
 						panel.informOutputReady();
+						this.start.setEnabled(true);
 					}
 				} else {
 					JOptionPane.showMessageDialog(null, "Invalid search methods chosen !");

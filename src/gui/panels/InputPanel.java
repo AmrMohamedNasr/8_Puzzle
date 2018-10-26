@@ -104,7 +104,7 @@ public class InputPanel extends JPanel {
 					worker.cancel(true);
 				}
 				worker = new SolverWorker(solver, parent, algorithm,
-						heuristic, reset, input.getText().trim());
+						heuristic, reset, input.getText().trim(), start);
 				worker.execute();
 			}
 		});
@@ -120,6 +120,7 @@ public class InputPanel extends JPanel {
 				}
 				input.setText("");
 				parent.informOutputUnready();
+				start.setEnabled(true);
 			}
 		});
 

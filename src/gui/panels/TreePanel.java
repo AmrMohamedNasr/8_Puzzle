@@ -241,6 +241,7 @@ public class TreePanel extends JPanel {
 	
 	public void reset_model() {
 		tree_list.clear();
+		to_draw.clear();
 	}
 	public static void main(String[] args) {
 		PuzzleSolver solver = new PuzzleSolver("012345678");
