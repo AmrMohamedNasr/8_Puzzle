@@ -23,12 +23,15 @@ public class BFS implements SearchAlgorithm {
 		long start_time = System.nanoTime();
 		Set<State> exploreHash = new HashSet<State>();
 		Queue<State> frontier = new LinkedList<State>();
+		Set<State> frontierHash = new HashSet<State>();
 		expanded_list.clear();
 		State current = null, target = null;
 		frontier.add(root);
+		frontierHash.add(root);
 		int max_depth = 0;
 		while (!frontier.isEmpty()) {
 			current = frontier.remove();
+			frontierHash.remove(current);
 			if (max_depth < current.getActualCost()) {
 				max_depth = current.getActualCost();
 			}
@@ -41,8 +44,9 @@ public class BFS implements SearchAlgorithm {
 			current.generateChildrenStates();
 			for (int i = 0; i < current.getChildrenStates().size(); i++) {
 				State child = current.getChildrenStates().get(i);
-				if (!exploreHash.contains(child) && !frontier.contains(child)) {
+				if (!exploreHash.contains(child) && !frontierHash.contains(child)) {
 					frontier.add(child);
+					frontierHash.add(child);
 				}
 			}
 		}

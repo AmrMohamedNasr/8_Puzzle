@@ -172,13 +172,13 @@ public class TreePanel extends JPanel {
 		Queue<State> queue = new LinkedList<State>();
 		queue.add(basic);
 		to_draw.clear();
+		Set<State> alreadyDrawn = new HashSet<State>();
 		while(!queue.isEmpty()) {
 			State m = queue.poll();
+			alreadyDrawn.add(m);
 			int effective_depth = m.getActualCost() - basic_depth;
 			if (effective_depth == 0) {
 				Node gnode = nodes.get(m);
-				System.out.println(m);
-				System.out.println("Center");
 				gnode.move_to(new Point(d.width / 2, 50));
 				to_draw.add(gnode);
 			} else if (effective_depth == 1) {
@@ -220,7 +220,7 @@ public class TreePanel extends JPanel {
 			}
 			for (int i = 0; i < m.getChildrenStates().size(); i++) {
 				State child = m.getChildrenStates().get(i);
-				if (child.getActualCost() - basic_depth < 3) {
+				if (!alreadyDrawn.contains(child) && child.getActualCost() - basic_depth < 3) {
 					queue.add(child);
 				}
 			}

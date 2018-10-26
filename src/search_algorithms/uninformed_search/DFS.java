@@ -21,13 +21,16 @@ public class DFS implements SearchAlgorithm {
 	public SearchResult search(State root, List<State> expanded_list, State goal) {
 		long start_time = System.nanoTime();
 		Set<State> exploreHash = new HashSet<State>();
+		Set<State> frontierHash = new HashSet<State>();
 		Stack<State> frontier = new Stack<State>();
 		State current = null, target = null;
 		frontier.add(root);
+		frontierHash.add(root);
 		expanded_list.clear();
 		int max_depth = 0;
 		while (!frontier.isEmpty()) {
 			current = frontier.pop();
+			frontierHash.remove(current);
 			if (max_depth < current.getActualCost()) {
 				max_depth = current.getActualCost();
 			}
@@ -40,8 +43,9 @@ public class DFS implements SearchAlgorithm {
 			current.generateChildrenStates();
 			for (int i = current.getChildrenStates().size() - 1; i >= 0; i--) {
 				State child = current.getChildrenStates().get(i);
-				if ((!exploreHash.contains(child)) && (!frontier.contains(child))) {
+				if ((!exploreHash.contains(child)) && (!frontierHash.contains(child))) {
 					frontier.add(child);
+					frontierHash.add(child);
 				}
 			}
 		}

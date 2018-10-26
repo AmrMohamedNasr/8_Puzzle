@@ -1,7 +1,9 @@
 package gui.workers;
 
 import java.awt.Color;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.SwingWorker;
@@ -29,8 +31,10 @@ public class TreeWorker extends SwingWorker<String, Void> {
 	protected String doInBackground() throws Exception {
 		State old_explored = null;
 		List<State> expand = solver.getSearchResult().expanded_list;
+		Set<State> hashSet = new HashSet<State>();
 		for (int i = 0; i < expand.size(); i++) {
 			State current = expand.get(i);
+			hashSet.add(current);
 			change_color_if_possible(current, Color.RED);
 			if (old_explored != null) {
 				change_color_if_possible(old_explored, Color.YELLOW);
@@ -38,7 +42,9 @@ public class TreeWorker extends SwingWorker<String, Void> {
 			
 			for (int j = 0; j < current.getChildrenStates().size(); j++) {
 				State child = current.getChildrenStates().get(j);
-				change_color_if_possible(child, Color.GREEN);
+				if (!hashSet.contains(child)) {
+					change_color_if_possible(child, Color.GREEN);
+				}
 			}
 			old_explored = current;
 			panel.assign_center_node(current);
