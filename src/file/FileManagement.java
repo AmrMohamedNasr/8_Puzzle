@@ -61,7 +61,7 @@ public class FileManagement implements FileManagementInf{
 		ps.println();
 		ps.print("Search Depth: " + depth +".");
 		ps.println();
-		ps.print("Time Taken: " + time +" second.");
+		ps.print("Time Taken: " + time +" ms.");
 		ps.println();
 		ps.println();
 	}
