@@ -25,12 +25,19 @@ public class FileManagement implements FileManagementInf{
 			ps.println();
 			PuzzleFilePrinter printer = new PuzzleFilePrinter(ps);
 			for( int i = 0; i < solver.getSearchResult().goal_path.size(); i++) {
+				ps.print("Actual Cost: " + solver.getSearchResult().goal_path.get(i).getActualCost()+ ".");
+				ps.println();
+				ps.print("Heuristic Cost: " + solver.getSearchResult().goal_path.get(i).getHeuristicCost()+ ".");
+				ps.println();
+				ps.print("Total Cost: " + solver.getSearchResult().goal_path.get(i).getCost()+ ".");
+				ps.println();
 				printer.printPuzzle(solver.getSearchResult().goal_path.get(i).toString());
 				if (i < solver.getSearchResult().goal_path.size() - 1) {
 					ps.print("To:");
 					ps.println();
 				}
 			}
+			ps.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
