@@ -1,9 +1,11 @@
 package search_algorithms.informed_search;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
+import java.util.Set;
 
 import search_algorithms.HeuristicFunction;
 import search_algorithms.SearchAlgorithm;
@@ -40,6 +42,7 @@ public class AStar implements SearchAlgorithm {
 	public SearchResult search(State root, List<State> expanded_list, State goal) {
 		long start_time = System.nanoTime();
 		PriorityQueue<State> frontier = new PriorityQueue<State>();
+		Set<State> exploreHash = new HashSet<State>();
 		Map<State, Double> frontier_map = new HashMap<State, Double>();
 		root.setHeuristicCost(heuristic.calculateHeursiticCost(root, goal));
 		frontier.add(root);
@@ -54,6 +57,7 @@ public class AStar implements SearchAlgorithm {
 				max_depth = current.getActualCost();
 			}
 			expanded_list.add(current);
+			exploreHash.add(current);
 			if (goal.equals(current)) {
 				target = current;
 				break;
@@ -61,7 +65,7 @@ public class AStar implements SearchAlgorithm {
 			current.generateChildrenStates();
 			for (int i = 0; i < current.getChildrenStates().size(); i++) {
 				State child = current.getChildrenStates().get(i);
-				if (!expanded_list.contains(child) && !frontier_map.containsKey(child)) {
+				if (!exploreHash.contains(child) && !frontier_map.containsKey(child)) {
 					child.setHeuristicCost(heuristic.calculateHeursiticCost(child, goal));
 					frontier.add(child);
 					frontier_map.put(child, child.getCost());
